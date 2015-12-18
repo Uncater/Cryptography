@@ -6,11 +6,18 @@ class VigenereCipher extends CI_Controller {
         parent::__construct();
         $this->InitTable();
     }
+     public function getEncrypt(){
+         echo $this->Encrypt($_POST['text'], $_POST['key']);
+     }
+     public function getDescrypt(){
+         echo $this->Decrypt($_POST['text'], $_POST['key']);
+     }
+
 
     public function Encrypt($plainText, $key) { // шифрование
         $textLenght   = strlen($plainText);
         $stretchedKey = $this->StretchKey($key, $textLenght);
-        var_dump($stretchedKey);
+        //var_dump($stretchedKey);
         $cipherText ='';
         for ($i = 0; $i < $textLenght; $i++) {
             $keyChar  = $stretchedKey[$i];
@@ -74,11 +81,12 @@ class VigenereCipher extends CI_Controller {
     function index(){
         $text = 'MARGARETAREYOUGRIEVINGOVERGOLDENGROVEUNLEAVINGLEAVESLIKETHETHINGSOFMANYOUWITHYOURFRESHTHOUGHTSCAREFORCANYOUAHASTHEHEARTGROWSOLDERITWILLCOMETOSUCHSIGHTSCOLDERBYANDBYNORSPAREASIGHTHOUGHWORLDSOFWANWOODLEAFMEALLIEANDYETYOUWILLWEEPANDKNOWWHYNOWNOMATTERCHILDTHENAMESORROWSSPRINGSARETHESAMENORMOUTHHADNONORMINDEXPRESSEDWHATHEARTHEARDOFGHOSTGUESSEDITISTHEBLIGHTMANWASBORNFORITISMARGARETYOUMOURNFOR';
         $key = 'WORD';
-        echo $text;
+       // echo $text;
        $shifr =  $this->Encrypt($text, $key);
-       var_dump($shifr);
+      // var_dump($shifr);
        $rashifr = $this->Decrypt($shifr, $key);
-       var_dump($rashifr);
+      // var_dump($rashifr);
+       $this->load->view('view_Vigenere');
 
     }
 
